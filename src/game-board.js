@@ -15,7 +15,7 @@ const GameBoard = () => {
 
   const getBoard = () => board;
 
-  const placeShips = () => {
+  const populateBoard = () => {
     // Place all ships onto the board
     Ship().placeShips(board, ships);
   };
@@ -75,7 +75,7 @@ const GameBoard = () => {
   return {
     createBoard,
     getBoard,
-    placeShips,
+    populateBoard,
     receiveAttack,
     allShipsDestroyed,
   };

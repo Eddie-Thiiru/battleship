@@ -1,4 +1,4 @@
-import { GameBoard } from "../gameboard";
+import { GameBoard } from "../game-board";
 
 const game = GameBoard();
 
@@ -20,7 +20,7 @@ test("Create board", () => {
 });
 
 test("Place ships onto game board", () => {
-  game.placeShips();
+  game.populateBoard();
 
   expect(game.getBoard()).toStrictEqual([
     [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],

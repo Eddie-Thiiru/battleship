@@ -1,38 +1,53 @@
-const Player = () => {
-  let attackedPos = [];
+let playerAttackedPos = [];
+let computerAttackedPos = [];
 
-  const isLegal = (pos) => {
-    for (let i = 0; i < attackedPos.length; i++) {
-      const element = array[i];
+const Player = (name) => {
+  const getName = () => name;
 
+  const isAttackLegal = (enemy, pos) => {
+    let array;
+
+    if (enemy === "user") {
+      array = playerAttackedPos;
+    } else {
+      array = computerAttackedPos;
+    }
+
+    while (array.length) {
+      const element = array.shift();
       if (element[0] === pos[0] && element[1] === pos[1]) {
         return false;
-      } else {
-        return true;
       }
     }
     return true;
   };
 
   const attack = (enemy) => {
-    if (enemy === "player") {
+    if (enemy === "user") {
       let x = Math.floor(Math.random() * 7);
       let y = Math.floor(Math.random() * 7);
       let pos = [x, y];
-      let checkLegal = isLegal(pos);
+      let checkLegal = isAttackLegal(pos);
 
       if (checkLegal === true) {
-        attackedPos.push(pos);
+        playerAttackedPos.push(enemy, pos);
         return pos;
       } else {
-        attack("player");
+        attack("user");
       }
     } else {
-      return [0, 0];
+      let pos = [0, 0];
+      let checkLegal = isAttackLegal(enemy, pos);
+
+      if (checkLegal === true) {
+        computerAttackedPos.push(pos);
+        return pos;
+      }
+      return null;
     }
   };
 
-  return { attack };
+  return { getName, isAttackLegal, attack };
 };
 
 export { Player };
