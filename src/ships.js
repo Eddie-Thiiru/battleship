@@ -1,5 +1,5 @@
-const ships = {
-  carrier: {
+const PlayerShips = () => {
+  let carrier = {
     length: 5,
     hits: 0,
     destroyed: false,
@@ -10,9 +10,9 @@ const ships = {
       [8, 1],
       [9, 1],
     ],
-  },
+  };
 
-  battleship: {
+  let battleship = {
     length: 4,
     hits: 0,
     destroyed: false,
@@ -22,9 +22,9 @@ const ships = {
       [2, 8],
       [3, 8],
     ],
-  },
+  };
 
-  destroyer: {
+  let destroyer = {
     length: 3,
     hits: 0,
     destroyed: false,
@@ -33,9 +33,9 @@ const ships = {
       [5, 6],
       [5, 7],
     ],
-  },
+  };
 
-  submarine: {
+  let submarine = {
     length: 3,
     hits: 0,
     destroyed: false,
@@ -44,9 +44,9 @@ const ships = {
       [1, 3],
       [1, 4],
     ],
-  },
+  };
 
-  patrolBoat: {
+  let patrolBoat = {
     length: 2,
     hits: 0,
     destroyed: false,
@@ -54,11 +54,13 @@ const ships = {
       [7, 8],
       [8, 8],
     ],
-  },
+  };
+
+  return { carrier, battleship, destroyer, submarine, patrolBoat };
 };
 
 const Ship = () => {
-  const placeShips = (board) => {
+  const placeShips = (board, ships) => {
     for (let key in ships) {
       let array = ships[key].coordinates;
 
@@ -94,84 +96,4 @@ const Ship = () => {
   return { placeShips, hit };
 };
 
-const GameBoard = () => {
-  let board = [];
-
-  const createBoard = () => {
-    for (let i = 0; i < 10; i++) {
-      board[i] = [];
-      for (let j = 0; j < 10; j++) {
-        board[i][j] = 0;
-      }
-    }
-  };
-
-  const getBoard = () => board;
-
-  const placeShips = () => {
-    // Place all ships onto the board
-    Ship().placeShips(board);
-  };
-
-  const findAttackedShip = (pos) => {
-    for (let key in ships) {
-      const array = ships[key].coordinates;
-
-      for (let i = 0; i < array.length; i++) {
-        const element = array[i];
-
-        if (element[0] === pos[0] && element[1] === pos[1]) {
-          return ships[key];
-        }
-      }
-    }
-  };
-
-  const receiveAttack = (pos) => {
-    let x = pos[0];
-    let y = pos[1];
-
-    if (board[x][y] === 1) {
-      const attackedShip = findAttackedShip(pos);
-
-      // Mark board position as attacked
-      board[x][y] = 3;
-
-      // Add hit count to attacked ship
-      Ship().hit(attackedShip);
-
-      return "ship hit";
-    } else if (board[x][y] === 0) {
-      // Mark board position as attacked
-      board[x][y] = 2;
-
-      return "missed";
-    } else {
-      return "This square already hit";
-    }
-  };
-
-  const allShipsDestroyed = () => {
-    let count = 0;
-
-    for (let key in ships) {
-      const shipState = ships[key].destroyed;
-
-      if (shipState === true) {
-        count += 1;
-      }
-    }
-
-    return count === 5 ? true : false;
-  };
-
-  return {
-    createBoard,
-    getBoard,
-    placeShips,
-    receiveAttack,
-    allShipsDestroyed,
-  };
-};
-
-export { GameBoard };
+export { PlayerShips, Ship };

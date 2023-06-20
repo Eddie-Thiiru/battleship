@@ -1,4 +1,4 @@
-import { GameBoard } from "../ships";
+import { GameBoard } from "../gameboard";
 
 const game = GameBoard();
 
@@ -45,7 +45,7 @@ test("Miss ship", () => {
 });
 
 test("Repeat same hit coordinates", () => {
-  expect(game.receiveAttack([0, 0])).toBe("This square already hit");
+  expect(game.receiveAttack([0, 0])).toBe("Already hit");
 });
 
 test("Show board after attacks", () => {
