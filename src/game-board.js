@@ -46,15 +46,9 @@ const GameBoard = () => {
 
       // Add hit count to attacked ship
       Ship().hit(attackedShip);
-
-      return "ship hit";
     } else if (board[x][y] === 0) {
       // Mark board position as attacked
       board[x][y] = 2;
-
-      return "missed";
-    } else {
-      return "Already hit";
     }
   };
 

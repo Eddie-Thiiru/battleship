@@ -22,28 +22,32 @@ const Player = (name) => {
     return true;
   };
 
-  const attack = (enemy) => {
+  const attack = (enemy, pos, GameBoard) => {
     if (enemy === "user") {
       let x = Math.floor(Math.random() * 7);
       let y = Math.floor(Math.random() * 7);
       let pos = [x, y];
-      let checkLegal = isAttackLegal(pos);
+      let checkLegal = isAttackLegal(enemy, pos);
 
       if (checkLegal === true) {
+        let board = GameBoard.getBoard();
+
         playerAttackedPos.push(enemy, pos);
-        return pos;
+        GameBoard.receiveAttack(pos, board);
       } else {
         attack("user");
       }
     } else {
-      let pos = [0, 0];
       let checkLegal = isAttackLegal(enemy, pos);
 
       if (checkLegal === true) {
+        let board = GameBoard.getBoard();
+
         computerAttackedPos.push(pos);
-        return pos;
+        GameBoard.receiveAttack(pos, board);
+      } else {
+        return;
       }
-      return null;
     }
   };
 
