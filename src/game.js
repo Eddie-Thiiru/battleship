@@ -4,11 +4,13 @@ import { renderBoards, gameWinner } from "./battleship";
 
 let userGameBoard;
 let computerGameBoard;
+let user;
+let computer;
 
 const Game = () => {
   // Create Player objects and GameBoard objects for each player
-  const user = Player("user");
-  const computer = Player("computer AI");
+  user = Player("user");
+  computer = Player("computer AI");
 
   userGameBoard = GameBoard();
   computerGameBoard = GameBoard();
@@ -48,10 +50,10 @@ const Game = () => {
   return { players };
 };
 
-const playRound = (enemy, pos) => {
-  let userAttacked = Player().attack(enemy, computerGameBoard, pos);
+const playRound = (pos) => {
+  let userAttacks = user.attack(computer, computerGameBoard, pos);
 
-  if (userAttacked === false) {
+  if (userAttacks === false) {
     return;
   } else {
     // Update computer board on the screen
@@ -67,7 +69,7 @@ const playRound = (enemy, pos) => {
     // Computer attacks the user 200 seconds after being attacked
     const myPromise = new Promise((resolve) => {
       setTimeout(() => {
-        resolve(Player().attack("user", userGameBoard, pos));
+        resolve(computer.attack(user, userGameBoard, pos));
       }, 200);
     }).then(() => {
       // Update user board on the screen

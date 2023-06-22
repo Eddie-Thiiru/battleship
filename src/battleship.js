@@ -138,7 +138,7 @@ const userEventHandler = () => {
       const array = data.split(",");
       const pos = [parseInt(array[0]), parseInt(array[1])];
 
-      playRound("computer AI", pos);
+      playRound(pos);
     }
   });
 
