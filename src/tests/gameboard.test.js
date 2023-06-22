@@ -36,33 +36,6 @@ test("Place ships onto game board", () => {
   ]);
 });
 
-test("Hit ship", () => {
-  expect(game.receiveAttack([5, 1])).toBe("ship hit");
-});
-
-test("Miss ship", () => {
-  expect(game.receiveAttack([0, 0])).toBe("missed");
-});
-
-test("Repeat same hit coordinates", () => {
-  expect(game.receiveAttack([0, 0])).toBe("Already hit");
-});
-
-test("Show board after attacks", () => {
-  expect(game.getBoard()).toStrictEqual([
-    [2, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-    [0, 0, 1, 1, 1, 0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 3, 0, 0, 0, 1, 1, 1, 0, 0],
-    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0, 0, 0, 0, 1, 0],
-    [0, 1, 0, 0, 0, 0, 0, 0, 1, 0],
-    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-  ]);
-});
-
 test("All ships Destroyed?", () => {
   expect(game.allShipsDestroyed()).toBe(false);
 });

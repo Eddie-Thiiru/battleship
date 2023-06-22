@@ -23,31 +23,13 @@ const Game = () => {
   userGameBoard.populateBoard();
   computerGameBoard.populateBoard();
 
-  //  Get player names fromm Player objects
-  const userName = user.getName();
-  const computerName = computer.getName();
-
   //   Get player boards from GameBoard objects
   const userBoard = userGameBoard.getBoard();
   const computerBoard = computerGameBoard.getBoard();
 
-  // Add player names and player boards to an array
-  const players = [
-    {
-      name: userName,
-      board: userBoard,
-    },
-    {
-      name: computerName,
-      board: computerBoard,
-    },
-  ];
-
   // Initial player boards are rendered
   renderBoards().renderUserBoard(userBoard);
   renderBoards().renderComputerBoard(computerBoard);
-
-  return { players };
 };
 
 const playRound = (pos) => {
