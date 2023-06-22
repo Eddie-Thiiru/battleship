@@ -1,7 +1,6 @@
 import { PlayerShips, Ship } from "./ships";
 
 const GameBoard = () => {
-  let ships = PlayerShips();
   let board = [];
 
   const createBoard = () => {
@@ -14,6 +13,8 @@ const GameBoard = () => {
   };
 
   const getBoard = () => board;
+
+  const ships = PlayerShips();
 
   const populateBoard = () => {
     // Place all ships onto the board

@@ -1,5 +1,5 @@
-let playerAttackedPos = [];
-let computerAttackedPos = [];
+let userAttacks = [];
+let computerAttacks = [];
 
 const Player = (name) => {
   const getName = () => name;
@@ -8,9 +8,9 @@ const Player = (name) => {
     let array;
 
     if (enemy === "user") {
-      array = playerAttackedPos;
+      array = computerAttacks.slice();
     } else {
-      array = computerAttackedPos;
+      array = userAttacks.slice();
     }
 
     while (array.length) {
@@ -22,20 +22,21 @@ const Player = (name) => {
     return true;
   };
 
-  const attack = (enemy, pos, GameBoard) => {
+  const attack = (enemy, GameBoard, pos) => {
     if (enemy === "user") {
-      let x = Math.floor(Math.random() * 7);
-      let y = Math.floor(Math.random() * 7);
+      let x = Math.floor(Math.random() * 10);
+      let y = Math.floor(Math.random() * 10);
       let pos = [x, y];
+
       let checkLegal = isAttackLegal(enemy, pos);
 
       if (checkLegal === true) {
         let board = GameBoard.getBoard();
 
-        playerAttackedPos.push(enemy, pos);
+        computerAttacks.push(pos);
         GameBoard.receiveAttack(pos, board);
       } else {
-        attack("user");
+        attack("user", GameBoard);
       }
     } else {
       let checkLegal = isAttackLegal(enemy, pos);
@@ -43,10 +44,10 @@ const Player = (name) => {
       if (checkLegal === true) {
         let board = GameBoard.getBoard();
 
-        computerAttackedPos.push(pos);
+        userAttacks.push(pos);
         GameBoard.receiveAttack(pos, board);
       } else {
-        return;
+        return false;
       }
     }
   };
@@ -54,4 +55,4 @@ const Player = (name) => {
   return { getName, isAttackLegal, attack };
 };
 
-export { Player };
+export { Player, userAttacks, computerAttacks };

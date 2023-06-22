@@ -1,4 +1,4 @@
-import { GameController } from "../game-controller";
+import { GameController } from "../game";
 
 const players = GameController().players;
 const user = players[0];

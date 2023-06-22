@@ -1,4 +1,5 @@
-import { playRound } from "./game-controller";
+import { Game, playRound } from "./game";
+import { userAttacks, computerAttacks } from "./player";
 import "./styles/styles.css";
 
 const pageLayout = () => {
@@ -13,6 +14,7 @@ const pageLayout = () => {
   const battlefieldTwo = document.createElement("div");
   const battlefieldOneTitle = document.createElement("h4");
   const battlefieldTwoTitle = document.createElement("h4");
+  const winnerContainer = document.createElement("div");
   const logoContainer = document.createElement("div");
   const logo = new Image();
 
@@ -27,11 +29,14 @@ const pageLayout = () => {
   battlefieldTwo.classList.add("computer-battlefield");
   battlefieldOneTitle.textContent = "Player Board";
   battlefieldTwoTitle.textContent = "AI Board";
+  winnerContainer.classList.add("winner-container");
+  logoContainer.classList.add("logo-container");
   logo.alt = "Submarine logo";
 
   logoContainer.appendChild(logo);
   header.appendChild(title);
   header.appendChild(logoContainer);
+  header.appendChild(winnerContainer);
   containerOne.appendChild(battlefieldOne);
   containerTwo.appendChild(battlefieldTwo);
   containerOne.appendChild(battlefieldOneTitle);
@@ -103,10 +108,30 @@ const renderBoards = () => {
   return { renderUserBoard, renderComputerBoard };
 };
 
+const gameWinner = (winner) => {
+  const container = document.querySelector(".winner-container");
+  const winnerAnnouncer = document.createElement("h3");
+  const restartButton = document.createElement("button");
+
+  winnerAnnouncer.classList.add("winner");
+  winnerAnnouncer.textContent = winner;
+  restartButton.classList.add("restart-button");
+  restartButton.type = "button";
+  restartButton.textContent = "Rematch";
+
+  container.appendChild(winnerAnnouncer);
+  container.appendChild(restartButton);
+};
+
 const userEventHandler = () => {
   const parent = document.querySelector(".computer-battlefield");
+  const parentTwo = document.querySelector(".winner-container");
+
   parent.addEventListener("click", (e) => {
-    let t = e.target.tagName;
+    if (parentTwo.hasChildNodes()) {
+      return;
+    }
+
     if (e.target.tagName === "BUTTON") {
       const square = e.target;
       const data = square.dataset.pos;
@@ -116,6 +141,19 @@ const userEventHandler = () => {
       playRound("computer AI", pos);
     }
   });
+
+  parentTwo.addEventListener("click", (e) => {
+    if ((e.target.className = "restart-button")) {
+      parentTwo.textContent = "";
+
+      // Empty attacked squares history
+      userAttacks.length = 0;
+      computerAttacks.length = 0;
+
+      // Start new game
+      Game();
+    }
+  });
 };
 
-export { pageLayout, renderBoards, userEventHandler };
+export { pageLayout, renderBoards, gameWinner, userEventHandler };
