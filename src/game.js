@@ -20,8 +20,8 @@ const Game = () => {
   computerGameBoard.createBoard();
 
   // Populate boards with ships for each player
-  userGameBoard.populateBoard();
-  computerGameBoard.populateBoard();
+  // userGameBoard.populateBoard();
+  // computerGameBoard.populateBoard();
 
   //   Get player boards from GameBoard objects
   const userBoard = userGameBoard.getBoard();

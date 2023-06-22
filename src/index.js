@@ -1,10 +1,11 @@
-import { Game } from "./game";
 import { pageLayout } from "./battleship";
 import { userEventHandler } from "./battleship";
+import { startMenu } from "./start-menu";
 
 const component = () => {
   pageLayout();
-  Game();
-  userEventHandler();
+  // Game();
+  startMenu();
+  // userEventHandler();
 };
 component();

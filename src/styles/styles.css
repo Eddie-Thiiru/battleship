@@ -14,7 +14,7 @@ body {
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template-rows: 150px 1fr 150px;
+  grid-template-rows: 100px 1fr 150px;
 }
 
 .main-section {
@@ -31,6 +31,27 @@ body {
   gap: 20px;
 }
 
+.left-section {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.right-section {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
+.start-menu-grid {
+  height: 400px;
+  width: 400px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
 .user-battlefield,
 .computer-battlefield {
   height: 350px;
@@ -38,6 +59,13 @@ body {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
+}
+
+.start-menu-square {
+  border: solid 1px grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .square {

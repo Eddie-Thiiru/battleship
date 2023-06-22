@@ -8,12 +8,7 @@ const pageLayout = () => {
   const main = document.createElement("div");
   const footer = document.createElement("div");
   const title = document.createElement("h1");
-  const containerOne = document.createElement("div");
-  const containerTwo = document.createElement("div");
-  const battlefieldOne = document.createElement("div");
-  const battlefieldTwo = document.createElement("div");
-  const battlefieldOneTitle = document.createElement("h4");
-  const battlefieldTwoTitle = document.createElement("h4");
+
   const winnerContainer = document.createElement("div");
   const logoContainer = document.createElement("div");
   const logo = new Image();
@@ -23,12 +18,7 @@ const pageLayout = () => {
   footer.classList.add("footer");
   title.classList.add("title");
   title.textContent = "Battleship";
-  containerOne.classList.add("user-container");
-  containerTwo.classList.add("computer-container");
-  battlefieldOne.classList.add("user-battlefield");
-  battlefieldTwo.classList.add("computer-battlefield");
-  battlefieldOneTitle.textContent = "Player Board";
-  battlefieldTwoTitle.textContent = "AI Board";
+
   winnerContainer.classList.add("winner-container");
   logoContainer.classList.add("logo-container");
   logo.alt = "Submarine logo";
@@ -37,15 +27,36 @@ const pageLayout = () => {
   header.appendChild(title);
   header.appendChild(logoContainer);
   header.appendChild(winnerContainer);
-  containerOne.appendChild(battlefieldOne);
-  containerTwo.appendChild(battlefieldTwo);
-  containerOne.appendChild(battlefieldOneTitle);
-  containerTwo.appendChild(battlefieldTwoTitle);
-  main.appendChild(containerOne);
-  main.appendChild(containerTwo);
   content.appendChild(header);
   content.appendChild(main);
   content.appendChild(footer);
+};
+
+const gameMenu = () => {
+  const container = document.querySelector(".main-section");
+
+  container.textContent = "";
+
+  const containerOne = document.createElement("div");
+  const containerTwo = document.createElement("div");
+  const battlefieldOne = document.createElement("div");
+  const battlefieldTwo = document.createElement("div");
+  const battlefieldOnePara = document.createElement("p");
+  const battlefieldTwoPara = document.createElement("p");
+
+  containerOne.classList.add("user-container");
+  containerTwo.classList.add("computer-container");
+  battlefieldOne.classList.add("user-battlefield");
+  battlefieldTwo.classList.add("computer-battlefield");
+  battlefieldOnePara.textContent = "Player Board";
+  battlefieldTwoPara.textContent = "AI Board";
+
+  containerOne.appendChild(battlefieldOne);
+  containerTwo.appendChild(battlefieldTwo);
+  containerOne.appendChild(battlefieldOnePara);
+  containerTwo.appendChild(battlefieldTwoPara);
+  container.appendChild(containerOne);
+  container.appendChild(containerTwo);
 };
 
 const renderBoards = () => {
@@ -156,4 +167,4 @@ const userEventHandler = () => {
   });
 };
 
-export { pageLayout, renderBoards, gameWinner, userEventHandler };
+export { pageLayout, gameMenu, renderBoards, gameWinner, userEventHandler };
