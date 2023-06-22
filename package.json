@@ -18,6 +18,12 @@
     "url": "https://github.com/Eddie-Thiiru/battleship/issues"
   },
   "homepage": "https://github.com/Eddie-Thiiru/battleship#readme",
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/src/__mocks__/styleMock.js"
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.22.5",
     "@babel/preset-env": "^7.22.5",
