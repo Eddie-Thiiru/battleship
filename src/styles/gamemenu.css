@@ -1,0 +1,40 @@
+.user-container,
+.computer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-battlefield,
+.computer-battlefield {
+  height: 350px;
+  width: 350px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.square {
+  border: solid 1px grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ship-square {
+  background-color: aquamarine;
+}
+
+.ship-missed {
+  background-color: grey;
+}
+
+.ship-hit {
+  background-color: red;
+}
+
+.square:hover {
+  background-color: green;
+}

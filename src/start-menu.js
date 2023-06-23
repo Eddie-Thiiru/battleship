@@ -1,4 +1,5 @@
 import { GameBoard } from "./game-board";
+import "./styles/startmenu.css";
 
 const getStartScreenBoard = () => {
   const gameBoard = GameBoard();
