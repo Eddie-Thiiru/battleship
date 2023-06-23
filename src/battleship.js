@@ -134,16 +134,16 @@ const gameWinner = (winner) => {
   container.appendChild(restartButton);
 };
 
-const userEventHandler = () => {
-  const parent = document.querySelector(".computer-battlefield");
-  const parentTwo = document.querySelector(".winner-container");
+const gameMenuEventHandler = () => {
+  const mainSection = document.querySelector(".main-section");
+  const winnerContainer = document.querySelector(".winner-container");
 
-  parent.addEventListener("click", (e) => {
-    if (parentTwo.hasChildNodes()) {
+  mainSection.addEventListener("click", (e) => {
+    if (winnerContainer.hasChildNodes()) {
       return;
     }
 
-    if (e.target.tagName === "BUTTON") {
+    if (e.target.className === "square") {
       const square = e.target;
       const data = square.dataset.pos;
       const array = data.split(",");
@@ -153,7 +153,7 @@ const userEventHandler = () => {
     }
   });
 
-  parentTwo.addEventListener("click", (e) => {
+  winnerContainer.addEventListener("click", (e) => {
     if ((e.target.className = "restart-button")) {
       parentTwo.textContent = "";
 
@@ -167,4 +167,4 @@ const userEventHandler = () => {
   });
 };
 
-export { pageLayout, gameMenu, renderBoards, gameWinner, userEventHandler };
+export { pageLayout, gameMenu, renderBoards, gameWinner, gameMenuEventHandler };
