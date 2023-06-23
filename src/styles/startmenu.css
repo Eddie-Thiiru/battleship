@@ -24,6 +24,7 @@ tbody {
 }
 
 .table-row {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
 }
@@ -41,32 +42,42 @@ tbody {
   gap: 5px;
 }
 
-.carrier {
+.carrier-berth,
+.battleship-berth,
+.destroyer-berth,
+.submarine-berth,
+.patrol-boat-berth {
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+#carrier {
   width: 200px;
 }
 
-.battleship {
+#battleship {
   width: 160px;
 }
 
-.destroyer {
+#destroyer {
   width: 120px;
 }
 
-.submarine {
+#submarine {
   width: 120px;
 }
 
-.patrol-boat {
+#patrol-boat {
   width: 80px;
 }
 
-.carrier,
-.battleship,
-.destroyer,
-.submarine,
-.patrol-boat {
-  height: 40px;
+#carrier,
+#battleship,
+#destroyer,
+#submarine,
+#patrol-boat {
+  height: 35px;
   background-color: lightblue;
   border: 1px solid skyblue;
 }
