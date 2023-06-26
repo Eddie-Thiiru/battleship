@@ -1,62 +1,56 @@
 const PlayerShips = () => {
-  let carrier = {
-    length: 5,
-    hits: 0,
-    destroyed: false,
-    coordinates: [
-      [5, 1],
-      [6, 1],
-      [7, 1],
-      [8, 1],
-      [9, 1],
-    ],
+  let ships = {
+    carrier: {
+      length: 5,
+      hits: 0,
+      destroyed: false,
+      coordinates: [],
+    },
+
+    battleship: {
+      length: 4,
+      hits: 0,
+      destroyed: false,
+      coordinates: [],
+    },
+
+    destroyer: {
+      length: 3,
+      hits: 0,
+      destroyed: false,
+      coordinates: [],
+    },
+
+    submarine: {
+      length: 3,
+      hits: 0,
+      destroyed: false,
+      coordinates: [],
+    },
+
+    patrolBoat: {
+      length: 2,
+      hits: 0,
+      destroyed: false,
+      coordinates: [],
+    },
+  };
+  const getShips = () => ships;
+
+  const addShipCoordinates = (array) => {
+    let copy = array.slice();
+
+    for (let key in ships) {
+      let shipArray = ships[key].coordinates;
+      let arr = copy.shift();
+
+      for (let i = 0; i < arr.length; i++) {
+        shipArray.push(arr[i]);
+      }
+    }
   };
 
-  let battleship = {
-    length: 4,
-    hits: 0,
-    destroyed: false,
-    coordinates: [
-      [0, 8],
-      [1, 8],
-      [2, 8],
-      [3, 8],
-    ],
-  };
-
-  let destroyer = {
-    length: 3,
-    hits: 0,
-    destroyed: false,
-    coordinates: [
-      [5, 5],
-      [5, 6],
-      [5, 7],
-    ],
-  };
-
-  let submarine = {
-    length: 3,
-    hits: 0,
-    destroyed: false,
-    coordinates: [
-      [1, 2],
-      [1, 3],
-      [1, 4],
-    ],
-  };
-
-  let patrolBoat = {
-    length: 2,
-    hits: 0,
-    destroyed: false,
-    coordinates: [
-      [7, 8],
-      [8, 8],
-    ],
-  };
-
-  return { carrier, battleship, destroyer, submarine, patrolBoat };
+  return { getShips, addShipCoordinates };
 };
 
 const Ship = () => {

@@ -1,4 +1,6 @@
 import { GameBoard } from "./game-board";
+import { gameMenu } from "./battleship";
+import { Game } from "./game";
 import "./styles/startmenu.css";
 
 const getStartScreenBoard = () => {
@@ -25,7 +27,6 @@ const startMenu = () => {
   const destroyerBerth = document.createElement("div");
   const submarineBerth = document.createElement("div");
   const patrolBoatBerth = document.createElement("div");
-
   const carrier = document.createElement("div");
   const battleship = document.createElement("div");
   const destroyer = document.createElement("div");
@@ -69,7 +70,6 @@ const startMenu = () => {
   rotateBtn.textContent = "Rotate";
 
   const board = getStartScreenBoard();
-
   // Create a grid of table rows and table cells
   for (let i = 0; i < board.length; i++) {
     const tableRow = document.createElement("tr");
@@ -83,7 +83,6 @@ const startMenu = () => {
       const cell = document.createElement("td");
 
       cell.classList.add("table-cell");
-
       cell.dataset.pos = `${i},${j}`;
 
       tableRow.appendChild(cell);
@@ -108,6 +107,206 @@ const startMenu = () => {
   rightSection.appendChild(rotateBtn);
   container.appendChild(leftSection);
   container.appendChild(rightSection);
+};
+
+let userShipsCoordinates = [];
+let computerShipCoordinates = [];
+let visited = [];
+
+const isArrayInArray = (source, search) => {
+  for (let i = 0; i < search.length; i++) {
+    let searchEle = search[i];
+
+    if (source.length === 0) return false;
+
+    // Search for each "search array" element in the source array
+    for (let j = 0; j < source.length; j++) {
+      let sourceEle = source[j];
+
+      if (searchEle[0] === sourceEle[0]) {
+        return true;
+      }
+    }
+  }
+};
+
+const getRandomPosition = (length) => {
+  let valid = false;
+  let pos;
+
+  while (valid === false) {
+    let x = Math.floor(Math.random() * 10);
+    let y = Math.floor(Math.random() * 10);
+    pos = [x, y];
+
+    if (x + length <= 10 && y + length <= 10) {
+      valid = true;
+    }
+  }
+
+  return pos;
+};
+
+const getLegalCombos = (shipLength) => {
+  const legalCombos = [
+    [
+      [0, 1],
+      [0, 2],
+      [0, 3],
+      [0, 4],
+      [0, 5],
+    ],
+    [
+      [1, 0],
+      [2, 0],
+      [3, 0],
+      [4, 0],
+      [5, 0],
+    ],
+  ];
+  const pos = getRandomPosition(shipLength);
+
+  let coordinates = [];
+  let set = legalCombos[0];
+  let lengthDiff = set.length - shipLength;
+  let arrayLength = set.length - 1 - lengthDiff;
+
+  coordinates.push(pos);
+
+  for (let i = 0; i < arrayLength; i++) {
+    const values = set[i];
+
+    let x = pos[0];
+    let y = pos[1];
+    let move = [x + values[0], y + values[1]];
+
+    coordinates.push(move);
+  }
+
+  return coordinates;
+};
+
+const getComputerShips = () => {
+  let length = 5;
+  let repeatShip = 1;
+
+  // Get coordinates for each ship
+  while (length > 1) {
+    let coordinates = getLegalCombos(length);
+    let itemVisited = isArrayInArray(visited, coordinates);
+
+    while (itemVisited === true) {
+      coordinates = getLegalCombos(length);
+      itemVisited = isArrayInArray(visited, coordinates);
+    }
+
+    computerShipCoordinates.push(coordinates);
+
+    for (let i = 0; i < coordinates.length; i++) {
+      visited.push(coordinates[i]);
+    }
+
+    if (length === 3 && repeatShip === 1) {
+      repeatShip -= 1;
+    } else {
+      length -= 1;
+    }
+  }
+};
+
+const allShipsPlaced = () => {
+  const port = document.querySelector(".port");
+  const nodeList = port.childNodes;
+
+  let ships = 0;
+
+  for (let i = 0; i < nodeList.length; i++) {
+    const element = nodeList[i];
+
+    if (element.hasChildNodes()) {
+      ships += 1;
+    }
+  }
+
+  // Create "start-game" button when all ships are placed on the board
+  if (ships === 0) {
+    const btn = document.createElement("button");
+
+    btn.classList.add("start-btn");
+    btn.type = "button";
+    btn.textContent = "Start Game";
+
+    port.appendChild(btn);
+  }
+};
+
+const isDropValid = (index, shipLength, nodeList) => {
+  // If ship drop exceeds the bound of the board, return false
+  if (index + shipLength > 10) {
+    return false;
+  }
+
+  /* This checks if there is a ship to the immediate left of the 
+  "drop ship", and stops execution if a placed ship is detected. */
+  const checkBack = () => {
+    let squareIndex = index - 1;
+    let square = nodeList[squareIndex];
+
+    if (square === undefined) {
+      return false;
+    }
+
+    let squareClass = square.className;
+
+    if (
+      squareClass.includes("carrier") ||
+      squareClass.includes("battleship") ||
+      squareClass.includes("destroyer") ||
+      squareClass.includes("submarine") ||
+      squareClass.includes("patrol-boat")
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  /* This checks if there is a ship to the immediate right of the 
+  "drop ship", and stops execution if a placed ship is detected. */
+  const checkFront = () => {
+    for (let i = 0; i < shipLength + 1; i++) {
+      let squareIndex = index + i;
+      let square = nodeList[squareIndex];
+
+      if (square === undefined) {
+        return true;
+      }
+
+      let squareClass = square.className;
+
+      if (
+        squareClass.includes("carrier") ||
+        squareClass.includes("battleship") ||
+        squareClass.includes("destroyer") ||
+        squareClass.includes("submarine") ||
+        squareClass.includes("patrol-boat")
+      ) {
+        return false;
+      }
+    }
+  };
+
+  let backValid = checkBack();
+  let frontValid = checkFront();
+
+  if (backValid === false && frontValid === true) {
+    return true;
+  } else if (
+    (backValid === false && frontValid === false) ||
+    (backValid === true && frontValid === false)
+  ) {
+    return false;
+  }
 };
 
 const startMenuEventHandler = () => {
@@ -147,34 +346,59 @@ const startMenuEventHandler = () => {
       const dropzone = e.target;
       const parent = dropzone.parentNode;
       const nodeList = parent.childNodes;
-
       const data = dropzone.dataset.pos;
       const array = data.split(",");
-      // const x = parseInt(array[0]);
+      const x = parseInt(array[0]);
       const y = parseInt(array[1]);
-
       const draggableId = e.dataTransfer.getData("text");
       const draggableElement = document.getElementById(draggableId);
       const shipLength = parseInt(draggableElement.dataset.length);
 
-      if (y + shipLength > 10) {
+      // This checks if the drop is valid
+      let valid = isDropValid(y, shipLength, nodeList);
+      let shipCoordinates = [];
+
+      // If drop is not valid, stop execution
+      if (valid === false) {
         nodeList[y].style.backgroundColor = "";
         return;
       } else {
+        // This adds a visual indication where the ship is dropped
         for (let i = 0; i < shipLength; i++) {
           let index = y + i;
-          nodeList[index].classList.add(`${draggableId}`);
+          nodeList[index].classList.add(draggableId);
           nodeList[index].style.backgroundColor = "aqua";
+          shipCoordinates.push([x, index]);
         }
 
         const draggableParent = draggableElement.parentNode;
-
         draggableParent.textContent = "";
 
         e.dataTransfer.clearData();
+        userShipsCoordinates.push(shipCoordinates);
+        allShipsPlaced();
       }
+    }
+  });
+
+  mainSection.addEventListener("click", (e) => {
+    if (e.target.className === "start-btn") {
+      mainSection.textContent = "";
+
+      getComputerShips();
+      gameMenu();
+      Game();
+
+      userShipsCoordinates.length = 0;
+      computerShipCoordinates.length = 0;
+      visited.length = 0;
     }
   });
 };
 
-export { startMenu, startMenuEventHandler };
+export {
+  startMenu,
+  userShipsCoordinates,
+  computerShipCoordinates,
+  startMenuEventHandler,
+};

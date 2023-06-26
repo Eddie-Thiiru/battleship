@@ -14,9 +14,12 @@ const GameBoard = () => {
 
   const getBoard = () => board;
 
-  const ships = PlayerShips();
+  const playerShips = PlayerShips();
+  const ships = playerShips.getShips();
 
-  const populateBoard = () => {
+  const populateBoard = (array) => {
+    playerShips.addShipCoordinates(array);
+
     // Place all ships onto the board
     Ship().placeShips(board, ships);
   };

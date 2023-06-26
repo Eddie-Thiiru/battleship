@@ -35,6 +35,7 @@ tbody {
 }
 
 .port {
+  position: relative;
   height: 100%;
   width: 100%;
   display: flex;
@@ -80,4 +81,16 @@ tbody {
   height: 35px;
   background-color: lightblue;
   border: 1px solid skyblue;
+}
+
+.start-btn {
+  position: absolute;
+  height: 100px;
+  width: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

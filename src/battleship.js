@@ -1,4 +1,5 @@
-import { Game, playRound } from "./game";
+import { startMenu } from "./start-menu";
+import { playRound } from "./game";
 import { userAttacks, computerAttacks } from "./player";
 import "./styles/gamemenu.css";
 
@@ -125,14 +126,15 @@ const gameMenuEventHandler = () => {
 
   winnerContainer.addEventListener("click", (e) => {
     if ((e.target.className = "restart-button")) {
-      parentTwo.textContent = "";
+      mainSection.textContent = "";
+      winnerContainer.textContent = "";
 
       // Empty attacked squares history
       userAttacks.length = 0;
       computerAttacks.length = 0;
 
       // Start new game
-      Game();
+      startMenu();
     }
   });
 };
