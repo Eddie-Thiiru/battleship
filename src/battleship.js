@@ -91,29 +91,28 @@ const renderBoards = () => {
 };
 
 const gameWinner = (winner) => {
-  const container = document.querySelector(".winner-container");
+  const container = document.querySelector(".main-section");
+  const popUp = document.createElement("div");
   const winnerAnnouncer = document.createElement("h3");
   const restartButton = document.createElement("button");
 
+  popUp.classList.add("pop-up");
   winnerAnnouncer.classList.add("winner");
   winnerAnnouncer.textContent = winner;
   restartButton.classList.add("restart-button");
   restartButton.type = "button";
   restartButton.textContent = "Rematch";
+  document.body.classList.toggle("modal-open");
 
-  container.appendChild(winnerAnnouncer);
-  container.appendChild(restartButton);
+  popUp.appendChild(winnerAnnouncer);
+  popUp.appendChild(restartButton);
+  container.appendChild(popUp);
 };
 
 const gameMenuEventHandler = () => {
   const mainSection = document.querySelector(".main-section");
-  const winnerContainer = document.querySelector(".winner-container");
 
   mainSection.addEventListener("click", (e) => {
-    if (winnerContainer.hasChildNodes()) {
-      return;
-    }
-
     if (e.target.className === "square") {
       const square = e.target;
       const data = square.dataset.pos;
@@ -124,10 +123,10 @@ const gameMenuEventHandler = () => {
     }
   });
 
-  winnerContainer.addEventListener("click", (e) => {
-    if ((e.target.className = "restart-button")) {
+  mainSection.addEventListener("click", (e) => {
+    if (e.target.className === "restart-button") {
+      document.body.classList.toggle("modal-open");
       mainSection.textContent = "";
-      winnerContainer.textContent = "";
 
       // Empty attacked squares history
       userAttacks.length = 0;

@@ -7,7 +7,8 @@
 body {
   height: 100vh;
   font-size: 1rem;
-  background-color: bisque;
+  color: #d1d4dc;
+  background-color: #131c26;
 }
 
 .content {
@@ -15,27 +16,28 @@ body {
   width: 100%;
   padding: 10px;
   display: grid;
-  grid-template-rows: 100px 1fr 150px;
+  grid-template-rows: 100px 1fr 100px;
 }
 
 .main-section {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(400px, 750px) minmax(400px, 750px);
+  justify-content: center;
+}
+
+.header {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
-.title-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
+.footer {
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
-h1 {
-  grid-column: 2 / 3;
-}
-
 img {
-  grid-column: 3 / 4;
   width: 60px;
   justify-self: end;
 }

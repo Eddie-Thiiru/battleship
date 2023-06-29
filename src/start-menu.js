@@ -42,9 +42,9 @@ const startMenu = () => {
   leftSection.classList.add("left-section");
   rightSection.classList.add("right-section");
   table.classList.add("start-menu-table");
-  para.classList.add("instructions");
+  para.classList.add("instructions-one");
   para.textContent = "Drag and drop ships";
-  paraTwo.classList.add("instructions");
+  paraTwo.classList.add("instructions-two");
   paraTwo.textContent = "Double click to rotate";
   shipsContainer.classList.add("port");
   carrierBerth.classList.add("carrier-berth");
@@ -121,6 +121,7 @@ const startMenu = () => {
 let userShipsCoordinates = [];
 
 const allShipsPlaced = () => {
+  const container = document.querySelector(".right-section");
   const port = document.querySelector(".port");
   const nodeList = port.childNodes;
 
@@ -142,7 +143,7 @@ const allShipsPlaced = () => {
     btn.type = "button";
     btn.textContent = "Start Game";
 
-    port.appendChild(btn);
+    container.appendChild(btn);
   }
 };
 
@@ -356,7 +357,10 @@ const startMenuEventHandler = () => {
       e.dataTransfer.setData("text/plain", element);
 
       if (e.target.className === "horizontal") {
-        e.target.textContent = element;
+        let str = element;
+        let letter = str.charAt(0).toUpperCase();
+        let text = str.replace(str.charAt(0), letter);
+        e.target.textContent = text;
       }
     } else {
       return;
@@ -369,7 +373,7 @@ const startMenuEventHandler = () => {
 
   mainSection.addEventListener("dragover", (e) => {
     if (e.target.className === "table-cell") {
-      e.target.style.backgroundColor = "aqua";
+      e.target.style.backgroundColor = "#23ffcf";
       e.preventDefault();
     }
   });
@@ -410,7 +414,7 @@ const startMenuEventHandler = () => {
           for (let i = 0; i < shipWidth; i++) {
             let index = y + i;
             nodeList[index].classList.add(draggableId);
-            nodeList[index].style.backgroundColor = "aqua";
+            nodeList[index].style.backgroundColor = "#0099d6";
             shipCoordinates.push([x, index]);
           }
         } else {
@@ -426,7 +430,7 @@ const startMenuEventHandler = () => {
             let list = children.childNodes;
 
             list[y].classList.add(draggableId);
-            list[y].style.backgroundColor = "aqua";
+            list[y].style.backgroundColor = "#0099d6";
             shipCoordinates.push([index, y]);
           }
         }

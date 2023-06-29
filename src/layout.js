@@ -6,9 +6,8 @@ const pageLayout = () => {
   const header = document.createElement("div");
   const main = document.createElement("div");
   const footer = document.createElement("div");
+  const copyright = document.createElement("p");
   const title = document.createElement("h1");
-  const winnerContainer = document.createElement("div");
-  const titleContainer = document.createElement("div");
   const logo = new Image();
 
   header.classList.add("header");
@@ -16,15 +15,14 @@ const pageLayout = () => {
   footer.classList.add("footer");
   title.classList.add("title");
   title.textContent = "Battleship";
-  winnerContainer.classList.add("winner-container");
-  titleContainer.classList.add("title-container");
+  copyright.classList.add("copyright");
+  copyright.textContent = "Copyright @ Battleship 2023";
   logo.src = Img;
   logo.alt = "Submarine logo";
 
-  titleContainer.appendChild(title);
-  titleContainer.appendChild(logo);
-  header.appendChild(titleContainer);
-  header.appendChild(winnerContainer);
+  header.appendChild(title);
+  header.appendChild(logo);
+  footer.appendChild(copyright);
   content.appendChild(header);
   content.appendChild(main);
   content.appendChild(footer);

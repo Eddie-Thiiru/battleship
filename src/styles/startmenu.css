@@ -5,8 +5,9 @@
 }
 
 .right-section {
+  position: relative;
   display: grid;
-  grid-template-rows: 50px 50px 1fr;
+  grid-template-rows: 100px 100px 1fr;
   justify-items: center;
   align-items: center;
 }
@@ -30,12 +31,15 @@ tbody {
 }
 
 .table-cell {
-  border: 1px solid gray;
-  background-color: white;
+  border: 1px solid #131c26;
+  background-color: #d1d4dc;
+}
+
+.instructions-one {
+  align-self: self-end;
 }
 
 .port {
-  position: relative;
   height: 100%;
   width: 100%;
   display: grid;
@@ -98,17 +102,22 @@ tbody {
 #destroyer,
 #submarine,
 #patrol-boat {
+  color: #030201;
+  background-color: #0099d6;
+  border-radius: 2px;
   display: flex;
-  background-color: lightblue;
-  border: 1px solid skyblue;
   justify-content: center;
   align-items: center;
 }
 
 .start-btn {
   position: absolute;
-  height: 100px;
-  width: 200px;
+  height: 80px;
+  width: 160px;
+  border: none;
+  border-radius: 5px;
+  background-color: #18bc9c;
+  padding: 10px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
