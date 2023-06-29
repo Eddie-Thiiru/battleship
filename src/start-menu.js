@@ -21,6 +21,7 @@ const startMenu = () => {
   const table = document.createElement("table");
   const tableBody = document.createElement("tbody");
   const para = document.createElement("p");
+  const paraTwo = document.createElement("p");
   const shipsContainer = document.createElement("div");
   const carrierBerth = document.createElement("div");
   const battleshipBerth = document.createElement("div");
@@ -32,42 +33,45 @@ const startMenu = () => {
   const destroyer = document.createElement("div");
   const submarine = document.createElement("div");
   const patrolBoat = document.createElement("div");
-  const rotateBtn = document.createElement("button");
 
   leftSection.classList.add("left-section");
   rightSection.classList.add("right-section");
   table.classList.add("start-menu-table");
-  para.classList.add("start-menu-para");
-  para.textContent = "Place your ships on the grid";
+  para.classList.add("instructions");
+  para.textContent = "Drag and drop ships";
+  paraTwo.classList.add("instructions");
+  paraTwo.textContent = "Double click to rotate";
   shipsContainer.classList.add("port");
   carrierBerth.classList.add("carrier-berth");
   battleshipBerth.classList.add("battleship-berth");
   destroyerBerth.classList.add("destroyer-berth");
   submarineBerth.classList.add("submarine-berth");
   patrolBoatBerth.classList.add("patrol-boat-berth");
+  carrier.classList.add("horizontal");
   carrier.id = "carrier";
-  carrier.dataset.length = 5;
+  carrier.dataset.height = 1;
+  carrier.dataset.width = 5;
   carrier.draggable = true;
-  carrier.textContent = "Carrier";
+  battleship.classList.add("horizontal");
   battleship.id = "battleship";
-  battleship.dataset.length = 4;
+  battleship.dataset.height = 1;
+  battleship.dataset.width = 4;
   battleship.draggable = true;
-  battleship.textContent = "Battleship";
+  destroyer.classList.add("horizontal");
   destroyer.id = "destroyer";
-  destroyer.dataset.length = 3;
+  destroyer.dataset.height = 1;
+  destroyer.dataset.width = 3;
   destroyer.draggable = true;
-  destroyer.textContent = "Destroyer";
+  submarine.classList.add("horizontal");
   submarine.id = "submarine";
-  submarine.dataset.length = 3;
+  submarine.dataset.height = 1;
+  submarine.dataset.width = 3;
   submarine.draggable = true;
-  submarine.textContent = "Submarine";
+  patrolBoat.classList.add("horizontal");
   patrolBoat.id = "patrol-boat";
-  patrolBoat.dataset.length = 2;
+  patrolBoat.dataset.height = 1;
+  patrolBoat.dataset.width = 2;
   patrolBoat.draggable = true;
-  patrolBoat.textContent = "Patrol Boat";
-  rotateBtn.classList.add("rotate-btn");
-  rotateBtn.type = "button";
-  rotateBtn.textContent = "Rotate";
 
   const board = getStartScreenBoard();
   // Create a grid of table rows and table cells
@@ -103,8 +107,8 @@ const startMenu = () => {
   table.appendChild(tableBody);
   leftSection.appendChild(table);
   rightSection.appendChild(para);
+  rightSection.appendChild(paraTwo);
   rightSection.appendChild(shipsContainer);
-  rightSection.appendChild(rotateBtn);
   container.appendChild(leftSection);
   container.appendChild(rightSection);
 };
@@ -123,7 +127,7 @@ const isArrayInArray = (source, search) => {
     for (let j = 0; j < source.length; j++) {
       let sourceEle = source[j];
 
-      if (searchEle[0] === sourceEle[0]) {
+      if (searchEle[0] === sourceEle[0] && searchEle[1] === sourceEle[1]) {
         return true;
       }
     }
@@ -147,6 +151,134 @@ const getRandomPosition = (length) => {
   return pos;
 };
 
+const getAdjCoordinates = (coordinates) => {
+  let adjPositions = [];
+  let orientation = "";
+  let one = coordinates[0];
+  let two = coordinates[1];
+
+  // Check coordinates orientation
+  if (one[0] === two[0] && one[1] !== two[1]) {
+    orientation = "horizontal";
+  } else if (one[0] !== two[0] && one[1] === two[1]) {
+    orientation = "vertical";
+  }
+
+  if (orientation === "vertical") {
+    for (let i = 0; i < coordinates.length; i++) {
+      const element = coordinates[i];
+
+      let adjLeft = [element[0], element[1] - 1];
+      let adjRight = [element[0], element[1] + 1];
+
+      if (adjLeft[1] >= 0 && adjLeft[1] <= 9) {
+        adjPositions.push(adjLeft);
+      }
+
+      if (adjRight[1] >= 0 && adjRight[1] <= 9) {
+        adjPositions.push(adjRight);
+      }
+
+      if (i === 0) {
+        let adjTop = [element[0] - 1, element[1]];
+
+        if (adjTop[0] >= 0 && adjTop[0] <= 9) {
+          adjPositions.push(adjTop);
+
+          let left = [adjTop[0], adjTop[1] - 1];
+          let right = [adjTop[0], adjTop[1] + 1];
+
+          if (left[1] >= 0 && left[1] <= 9) {
+            adjPositions.push(left);
+          }
+
+          if (right[1] >= 0 && right[1] <= 9) {
+            adjPositions.push(right);
+          }
+        }
+      }
+
+      if (coordinates.length - i === 1) {
+        let adjBottom = [element[0] + 1, element[1]];
+
+        if (adjBottom[0] >= 0 && adjBottom[0] <= 9) {
+          adjPositions.push(adjBottom);
+
+          let left = [adjBottom[0], adjBottom[1] - 1];
+          let right = [adjBottom[0], adjBottom[1] + 1];
+
+          if (left[1] >= 0 && left[1] <= 9) {
+            adjPositions.push(left);
+          }
+
+          if (right[1] >= 0 && right[1] <= 9) {
+            adjPositions.push(right);
+          }
+        }
+      }
+    }
+
+    return adjPositions;
+  }
+
+  if (orientation === "horizontal") {
+    for (let i = 0; i < coordinates.length; i++) {
+      const element = coordinates[i];
+
+      let adjTop = [element[0] - 1, element[1]];
+      let adjBottom = [element[0] + 1, element[1]];
+
+      if (adjTop[0] >= 0 && adjTop[0] <= 9) {
+        adjPositions.push(adjTop);
+      }
+
+      if (adjBottom[0] >= 0 && adjBottom[0] <= 9) {
+        adjPositions.push(adjBottom);
+      }
+
+      if (i === 0) {
+        let adjLeft = [element[0], element[1] - 1];
+
+        if (adjLeft[1] >= 0 && adjLeft[1] <= 9) {
+          adjPositions.push(adjLeft);
+
+          let top = [adjLeft[0] - 1, adjLeft[1]];
+          let bottom = [adjLeft[0] + 1, adjLeft[1]];
+
+          if (top[0] >= 0 && top[0] <= 9) {
+            adjPositions.push(top);
+          }
+
+          if (bottom[0] >= 0 && bottom[0] <= 9) {
+            adjPositions.push(bottom);
+          }
+        }
+      }
+
+      if (coordinates.length - i === 1) {
+        let adjRight = [element[0], element[1] + 1];
+
+        if (adjRight[1] >= 0 && adjRight[1] <= 9) {
+          adjPositions.push(adjRight);
+
+          let top = [adjRight[0] - 1, adjRight[1]];
+          let bottom = [adjRight[0] + 1, adjRight[1]];
+
+          if (top[0] >= 0 && top[0] <= 9) {
+            adjPositions.push(top);
+          }
+
+          if (bottom[0] >= 0 && bottom[0] <= 9) {
+            adjPositions.push(bottom);
+          }
+        }
+      }
+    }
+
+    return adjPositions;
+  }
+};
+
 const getLegalCombos = (shipLength) => {
   const legalCombos = [
     [
@@ -167,7 +299,14 @@ const getLegalCombos = (shipLength) => {
   const pos = getRandomPosition(shipLength);
 
   let coordinates = [];
-  let set = legalCombos[0];
+  let set;
+
+  if (shipLength % 2 === 0) {
+    set = legalCombos[0];
+  } else {
+    set = legalCombos[1];
+  }
+
   let lengthDiff = set.length - shipLength;
   let arrayLength = set.length - 1 - lengthDiff;
 
@@ -202,8 +341,20 @@ const getComputerShips = () => {
 
     computerShipCoordinates.push(coordinates);
 
+    // Push coordinates to the visited array
     for (let i = 0; i < coordinates.length; i++) {
-      visited.push(coordinates[i]);
+      let coordinate = coordinates[i];
+
+      visited.push(coordinate);
+    }
+
+    const adjCoordinates = getAdjCoordinates(coordinates);
+
+    // Push adjacent coordinates to the visited array
+    for (let i = 0; i < adjCoordinates.length; i++) {
+      let coordinate = adjCoordinates[i];
+
+      visited.push(coordinate);
     }
 
     if (length === 3 && repeatShip === 1) {
@@ -240,46 +391,32 @@ const allShipsPlaced = () => {
   }
 };
 
-const isDropValid = (index, shipLength, nodeList) => {
+const isDropValid = (indexX, indexY, shipHeight, shipWidth, nodeList) => {
   // If ship drop exceeds the bound of the board, return false
-  if (index + shipLength > 10) {
+  if (indexY + shipWidth > 10) {
     return false;
   }
 
-  /* This checks if there is a ship to the immediate left of the 
+  /* This checks if there is a ship to the immediate top of the 
   "drop ship", and stops execution if a placed ship is detected. */
-  const checkBack = () => {
-    let squareIndex = index - 1;
-    let square = nodeList[squareIndex];
+  const checkTop = () => {
+    let dropSquare = nodeList[indexY];
+    let parent = dropSquare.parentNode;
+    let parentSibling = parent.previousSibling;
+    let startIndex = indexY - 1;
 
-    if (square === undefined) {
-      return false;
-    }
-
-    let squareClass = square.className;
-
-    if (
-      squareClass.includes("carrier") ||
-      squareClass.includes("battleship") ||
-      squareClass.includes("destroyer") ||
-      squareClass.includes("submarine") ||
-      squareClass.includes("patrol-boat")
-    ) {
-      return false;
-    } else {
+    if (parentSibling === null) {
       return true;
     }
-  };
 
-  /* This checks if there is a ship to the immediate right of the 
-  "drop ship", and stops execution if a placed ship is detected. */
-  const checkFront = () => {
-    for (let i = 0; i < shipLength + 1; i++) {
-      let squareIndex = index + i;
+    for (let i = 0; i < shipWidth + 2; i++) {
+      // Checks child nodes of the parent sibling
+      let squareIndex = startIndex + i;
+      let nodeList = parentSibling.childNodes;
       let square = nodeList[squareIndex];
 
       if (square === undefined) {
-        return true;
+        continue;
       }
 
       let squareClass = square.className;
@@ -294,16 +431,131 @@ const isDropValid = (index, shipLength, nodeList) => {
         return false;
       }
     }
+    return true;
   };
 
-  let backValid = checkBack();
-  let frontValid = checkFront();
+  /* This checks if there is a ship to the immediate right of the 
+  "drop ship", and stops execution if a placed ship is detected. */
+  const checkRight = () => {
+    let dropSquare = nodeList[indexY];
+    let parent = dropSquare.parentNode;
+    let grandParent = parent.parentNode;
+    let parentList = grandParent.childNodes;
+    let squareIndex = indexY + shipWidth;
 
-  if (backValid === false && frontValid === true) {
+    for (let i = 0; i < shipHeight; i++) {
+      let index = indexX + i;
+      let children = parentList[index];
+      let list = children.childNodes;
+      let square = list[squareIndex];
+
+      if (square === undefined) {
+        continue;
+      }
+
+      let squareClass = square.className;
+
+      if (
+        squareClass.includes("carrier") ||
+        squareClass.includes("battleship") ||
+        squareClass.includes("destroyer") ||
+        squareClass.includes("submarine") ||
+        squareClass.includes("patrol-boat")
+      ) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  /* This checks if there is a ship to the immediate bottom of the 
+  "drop ship", and stops execution if a placed ship is detected. */
+  const checkBottom = () => {
+    let dropSquare = nodeList[indexY];
+    let parent = dropSquare.parentNode;
+    let parentSibling = parent.nextSibling;
+    let startIndex = indexY - 1;
+
+    if (parentSibling === null) {
+      return true;
+    }
+
+    for (let i = 0; i < shipWidth + 2; i++) {
+      // Checks child nodes of the parent sibling
+      let squareIndex = startIndex + i;
+      let nodeList = parentSibling.childNodes;
+      let square = nodeList[squareIndex];
+
+      if (square === undefined) {
+        continue;
+      }
+
+      let squareClass = square.className;
+
+      if (
+        squareClass.includes("carrier") ||
+        squareClass.includes("battleship") ||
+        squareClass.includes("destroyer") ||
+        squareClass.includes("submarine") ||
+        squareClass.includes("patrol-boat")
+      ) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  /* This checks if there is a ship to the immediate left of the 
+  "drop ship", and stops execution if a placed ship is detected. */
+  const checkLeft = () => {
+    let dropSquare = nodeList[indexY];
+    let parent = dropSquare.parentNode;
+    let grandParent = parent.parentNode;
+    let parentList = grandParent.childNodes;
+    let squareIndex = indexY - 1;
+
+    for (let i = 0; i < shipHeight; i++) {
+      let index = indexX + i;
+      let children = parentList[index];
+      let list = children.childNodes;
+      let square = list[squareIndex];
+
+      if (square === undefined) {
+        continue;
+      }
+
+      let squareClass = square.className;
+
+      if (
+        squareClass.includes("carrier") ||
+        squareClass.includes("battleship") ||
+        squareClass.includes("destroyer") ||
+        squareClass.includes("submarine") ||
+        squareClass.includes("patrol-boat")
+      ) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  let topValid = checkTop();
+  let rightValid = checkRight();
+  let bottomValid = checkBottom();
+  let leftValid = checkLeft();
+
+  if (
+    topValid === true &&
+    rightValid === true &&
+    bottomValid === true &&
+    leftValid === true
+  ) {
     return true;
   } else if (
-    (backValid === false && frontValid === false) ||
-    (backValid === true && frontValid === false)
+    topValid === false ||
+    rightValid === false ||
+    bottomValid === false ||
+    leftValid === false
   ) {
     return false;
   }
@@ -311,6 +563,30 @@ const isDropValid = (index, shipLength, nodeList) => {
 
 const startMenuEventHandler = () => {
   const mainSection = document.querySelector(".main-section");
+
+  mainSection.addEventListener("dblclick", (e) => {
+    let element = e.target;
+
+    if (
+      element.id === "carrier" ||
+      element.id === "battleship" ||
+      element.id === "destroyer" ||
+      element.id === "submarine" ||
+      element.id === "patrol-boat"
+    ) {
+      let height = element.dataset.height;
+      let width = element.dataset.width;
+
+      element.dataset.height = width;
+      element.dataset.width = height;
+    }
+
+    if (element.className === "horizontal") {
+      element.classList.replace("horizontal", "vertical");
+    } else if (element.className === "vertical") {
+      element.classList.replace("vertical", "horizontal");
+    }
+  });
 
   mainSection.addEventListener("dragstart", (e) => {
     let element = e.target.id;
@@ -323,9 +599,17 @@ const startMenuEventHandler = () => {
       element === "patrol-boat"
     ) {
       e.dataTransfer.setData("text/plain", element);
+
+      if (e.target.className === "horizontal") {
+        e.target.textContent = element;
+      }
     } else {
       return;
     }
+  });
+
+  mainSection.addEventListener("dragend", (e) => {
+    e.target.textContent = "";
   });
 
   mainSection.addEventListener("dragover", (e) => {
@@ -352,10 +636,12 @@ const startMenuEventHandler = () => {
       const y = parseInt(array[1]);
       const draggableId = e.dataTransfer.getData("text");
       const draggableElement = document.getElementById(draggableId);
-      const shipLength = parseInt(draggableElement.dataset.length);
+      const orientation = draggableElement.className;
+      const shipHeight = parseInt(draggableElement.dataset.height);
+      const shipWidth = parseInt(draggableElement.dataset.width);
 
       // This checks if the drop is valid
-      let valid = isDropValid(y, shipLength, nodeList);
+      let valid = isDropValid(x, y, shipHeight, shipWidth, nodeList);
       let shipCoordinates = [];
 
       // If drop is not valid, stop execution
@@ -363,12 +649,30 @@ const startMenuEventHandler = () => {
         nodeList[y].style.backgroundColor = "";
         return;
       } else {
-        // This adds a visual indication where the ship is dropped
-        for (let i = 0; i < shipLength; i++) {
-          let index = y + i;
-          nodeList[index].classList.add(draggableId);
-          nodeList[index].style.backgroundColor = "aqua";
-          shipCoordinates.push([x, index]);
+        if (orientation === "horizontal") {
+          // This adds a visual indication where the ship is dropped
+          for (let i = 0; i < shipWidth; i++) {
+            let index = y + i;
+            nodeList[index].classList.add(draggableId);
+            nodeList[index].style.backgroundColor = "aqua";
+            shipCoordinates.push([x, index]);
+          }
+        } else {
+          // This adds a visual indication where the ship is dropped
+          let dropSquare = nodeList[y];
+          let parent = dropSquare.parentNode;
+          let grandParent = parent.parentNode;
+          let parentList = grandParent.childNodes;
+
+          for (let i = 0; i < shipHeight; i++) {
+            let index = x + i;
+            let children = parentList[index];
+            let list = children.childNodes;
+
+            list[y].classList.add(draggableId);
+            list[y].style.backgroundColor = "aqua";
+            shipCoordinates.push([index, y]);
+          }
         }
 
         const draggableParent = draggableElement.parentNode;

@@ -6,7 +6,7 @@
 
 .right-section {
   display: grid;
-  grid-template-rows: 1fr 3fr 1fr;
+  grid-template-rows: 50px 50px 1fr;
   justify-items: center;
   align-items: center;
 }
@@ -38,9 +38,10 @@ tbody {
   position: relative;
   height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+  display: grid;
+  grid-template-columns: min-content auto;
+  grid-auto-rows: minmax(min-content, max-content);
+  justify-content: center;
 }
 
 .carrier-berth,
@@ -48,29 +49,48 @@ tbody {
 .destroyer-berth,
 .submarine-berth,
 .patrol-boat-berth {
-  height: 50px;
-  display: flex;
-  align-items: center;
+  padding: 10px;
 }
 
-#carrier {
+#carrier.horizontal {
+  height: 35px;
   width: 200px;
 }
-
-#battleship {
+#battleship.horizontal {
+  height: 35px;
   width: 160px;
 }
 
-#destroyer {
+#destroyer.horizontal,
+#submarine.horizontal {
+  height: 35px;
   width: 120px;
 }
 
-#submarine {
-  width: 120px;
-}
-
-#patrol-boat {
+#patrol-boat.horizontal {
+  height: 35px;
   width: 80px;
+}
+
+#carrier.vertical {
+  height: 200px;
+  width: 35px;
+}
+
+#battleship.vertical {
+  height: 160px;
+  width: 35px;
+}
+
+#destroyer.vertical,
+#submarine.vertical {
+  height: 120px;
+  width: 35px;
+}
+
+#patrol-boat.vertical {
+  height: 80px;
+  width: 35px;
 }
 
 #carrier,
@@ -78,9 +98,11 @@ tbody {
 #destroyer,
 #submarine,
 #patrol-boat {
-  height: 35px;
+  display: flex;
   background-color: lightblue;
   border: 1px solid skyblue;
+  justify-content: center;
+  align-items: center;
 }
 
 .start-btn {
