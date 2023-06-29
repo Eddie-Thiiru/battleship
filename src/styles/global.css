@@ -13,6 +13,7 @@ body {
 .content {
   height: 100%;
   width: 100%;
+  padding: 10px;
   display: grid;
   grid-template-rows: 100px 1fr 150px;
 }
@@ -20,4 +21,21 @@ body {
 .main-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+.title-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
+h1 {
+  grid-column: 2 / 3;
+}
+
+img {
+  grid-column: 3 / 4;
+  width: 60px;
+  justify-self: end;
 }

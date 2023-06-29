@@ -1,4 +1,5 @@
 import "./styles/global.css";
+import Img from "./images/submarine.png";
 
 const pageLayout = () => {
   const content = document.querySelector(".content");
@@ -7,7 +8,7 @@ const pageLayout = () => {
   const footer = document.createElement("div");
   const title = document.createElement("h1");
   const winnerContainer = document.createElement("div");
-  const logoContainer = document.createElement("div");
+  const titleContainer = document.createElement("div");
   const logo = new Image();
 
   header.classList.add("header");
@@ -16,12 +17,13 @@ const pageLayout = () => {
   title.classList.add("title");
   title.textContent = "Battleship";
   winnerContainer.classList.add("winner-container");
-  logoContainer.classList.add("logo-container");
+  titleContainer.classList.add("title-container");
+  logo.src = Img;
   logo.alt = "Submarine logo";
 
-  logoContainer.appendChild(logo);
-  header.appendChild(title);
-  header.appendChild(logoContainer);
+  titleContainer.appendChild(title);
+  titleContainer.appendChild(logo);
+  header.appendChild(titleContainer);
   header.appendChild(winnerContainer);
   content.appendChild(header);
   content.appendChild(main);
