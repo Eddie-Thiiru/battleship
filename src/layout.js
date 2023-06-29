@@ -6,7 +6,6 @@ const pageLayout = () => {
   const main = document.createElement("div");
   const footer = document.createElement("div");
   const title = document.createElement("h1");
-
   const winnerContainer = document.createElement("div");
   const logoContainer = document.createElement("div");
   const logo = new Image();
@@ -16,7 +15,6 @@ const pageLayout = () => {
   footer.classList.add("footer");
   title.classList.add("title");
   title.textContent = "Battleship";
-
   winnerContainer.classList.add("winner-container");
   logoContainer.classList.add("logo-container");
   logo.alt = "Submarine logo";

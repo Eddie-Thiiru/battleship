@@ -1,5 +1,5 @@
 import { startMenu } from "./start-menu";
-import { playRound } from "./game";
+import { playRound } from "./game-controller";
 import { userAttacks, computerAttacks } from "./player";
 import "./styles/gamemenu.css";
 
