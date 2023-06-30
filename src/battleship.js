@@ -1,4 +1,4 @@
-import { startMenu, startMenuEventHandler } from "./start-menu";
+import { startMenu } from "./start-menu";
 import { playRound } from "./game-controller";
 import { userAttacks, computerAttacks } from "./player";
 import "./styles/gamemenu.css";
@@ -39,11 +39,11 @@ const renderBoards = () => {
     userBattlefield.textContent = "";
 
     for (let i = 0; i < board.length; i++) {
-      const row = board[i];
+      let row = board[i];
 
       for (let j = 0; j < row.length; j++) {
         const btn = document.createElement("button");
-        const data = board[i][j];
+        let data = board[i][j];
 
         btn.classList.add("square");
         btn.type = "button";
@@ -67,11 +67,11 @@ const renderBoards = () => {
     computerBattlefield.textContent = "";
 
     for (let i = 0; i < board.length; i++) {
-      const row = board[i];
+      let row = board[i];
 
       for (let j = 0; j < row.length; j++) {
         const btn = document.createElement("button");
-        const data = board[i][j];
+        let data = board[i][j];
 
         btn.classList.add("square");
         btn.classList.add("computer");
@@ -114,7 +114,7 @@ const gameMenuEventHandler = () => {
   const mainSection = document.querySelector(".main-section");
 
   mainSection.addEventListener("mouseover", (e) => {
-    const element = e.target;
+    let element = e.target;
 
     if (element.className === "square computer") {
       element.style.backgroundColor = "#23ffcf";
@@ -122,7 +122,7 @@ const gameMenuEventHandler = () => {
   });
 
   mainSection.addEventListener("mouseout", (e) => {
-    const element = e.target;
+    let element = e.target;
 
     if (element.className === "square computer") {
       element.style.backgroundColor = "";
@@ -130,12 +130,12 @@ const gameMenuEventHandler = () => {
   });
 
   mainSection.addEventListener("click", (e) => {
-    const element = e.target;
+    let element = e.target;
 
     if (element.className === "square computer") {
-      const data = element.dataset.pos;
-      const array = data.split(",");
-      const pos = [parseInt(array[0]), parseInt(array[1])];
+      let data = element.dataset.pos;
+      let array = data.split(",");
+      let pos = [parseInt(array[0]), parseInt(array[1])];
 
       playRound(pos);
     }

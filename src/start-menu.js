@@ -79,16 +79,19 @@ const startMenu = () => {
   patrolBoat.draggable = true;
 
   const board = getStartScreenBoard();
+
   // Create a grid of table rows and table cells
   for (let i = 0; i < board.length; i++) {
+    // Create row
     const tableRow = document.createElement("tr");
 
     tableRow.classList.add("table-row");
     tableRow.id = `dropzone-${i}`;
 
-    const row = board[i];
+    let row = board[i];
 
     for (let j = 0; j < row.length; j++) {
+      // create row cell
       const cell = document.createElement("td");
 
       cell.classList.add("table-cell");
@@ -139,12 +142,11 @@ const sortShipsCoordinates = () => {
 const allShipsPlaced = () => {
   const container = document.querySelector(".right-section");
   const port = document.querySelector(".port");
-  const nodeList = port.childNodes;
-
+  let nodeList = port.childNodes;
   let ships = 0;
 
   for (let i = 0; i < nodeList.length; i++) {
-    const element = nodeList[i];
+    let element = nodeList[i];
 
     if (element.hasChildNodes()) {
       ships += 1;
@@ -153,8 +155,6 @@ const allShipsPlaced = () => {
 
   // Create "start-game" button when all ships are placed on the board
   if (ships === 0) {
-    sortShipsCoordinates();
-
     const btn = document.createElement("button");
 
     btn.classList.add("start-btn");
@@ -162,6 +162,9 @@ const allShipsPlaced = () => {
     btn.textContent = "Start Game";
 
     container.appendChild(btn);
+
+    // Add ship coordinates to array
+    sortShipsCoordinates();
   }
 };
 
@@ -378,6 +381,7 @@ const startMenuEventHandler = () => {
         let str = element;
         let letter = str.charAt(0).toUpperCase();
         let text = str.replace(str.charAt(0), letter);
+
         e.target.textContent = text;
       }
     } else {
@@ -431,6 +435,7 @@ const startMenuEventHandler = () => {
           // This adds a visual indication where the ship is dropped
           for (let i = 0; i < shipWidth; i++) {
             let index = y + i;
+
             nodeList[index].classList.add(draggableId);
             nodeList[index].style.backgroundColor = "#0099d6";
             shipCoordinates.push([x, index]);
@@ -454,8 +459,8 @@ const startMenuEventHandler = () => {
         }
 
         const draggableParent = draggableElement.parentNode;
-        draggableParent.textContent = "";
 
+        draggableParent.textContent = "";
         userShips[draggableId] = shipCoordinates;
         e.dataTransfer.clearData();
         allShipsPlaced();

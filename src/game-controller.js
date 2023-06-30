@@ -25,7 +25,7 @@ const Game = () => {
   userGameBoard.populateBoard(userShipsCoordinates);
   computerGameBoard.populateBoard(computerShipCoordinates);
 
-  //   Get player boards from GameBoard objects
+  // Get player boards from GameBoard objects
   const userBoard = userGameBoard.getBoard();
   const computerBoard = computerGameBoard.getBoard();
 

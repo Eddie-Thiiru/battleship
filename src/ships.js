@@ -35,6 +35,7 @@ const PlayerShips = () => {
       coordinates: [],
     },
   };
+
   const getShips = () => ships;
 
   const addShipCoordinates = (array) => {
@@ -59,9 +60,9 @@ const Ship = () => {
       let array = ships[key].coordinates;
 
       for (let i = 0; i < array.length; i++) {
-        const element = array[i];
-        const x = element[0];
-        const y = element[1];
+        let element = array[i];
+        let x = element[0];
+        let y = element[1];
 
         board[x][y] = 1;
       }
@@ -69,8 +70,8 @@ const Ship = () => {
   };
 
   const isSunk = (ship) => {
-    const shipLength = ship.length;
-    const hitsCount = ship.hits;
+    let shipLength = ship.length;
+    let hitsCount = ship.hits;
 
     // check ship length and no of times its been hit
     return shipLength === hitsCount ? true : false;

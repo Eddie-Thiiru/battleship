@@ -14,7 +14,8 @@ const Player = (name) => {
     }
 
     while (array.length) {
-      const element = array.shift();
+      let element = array.shift();
+
       if (element[0] === pos[0] && element[1] === pos[1]) {
         return false;
       }
@@ -36,6 +37,7 @@ const Player = (name) => {
       let pos = getRandom();
       let checkLegal = isAttackLegal(enemyName, pos);
 
+      // While random attack is illegal, get new attack coordinate
       while (checkLegal === false) {
         pos = getRandom();
         checkLegal = isAttackLegal(enemyName, pos);

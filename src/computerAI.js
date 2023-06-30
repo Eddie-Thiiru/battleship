@@ -34,8 +34,7 @@ const getAdjCoordinates = (coordinates) => {
   // Add adjacent coordinates for ship coordinates along the Y-axis
   if (orientation === "vertical") {
     for (let i = 0; i < coordinates.length; i++) {
-      const element = coordinates[i];
-
+      let element = coordinates[i];
       let adjLeft = [element[0], element[1] - 1];
       let adjRight = [element[0], element[1] + 1];
 
@@ -94,8 +93,7 @@ const getAdjCoordinates = (coordinates) => {
   // Add adjacent coordinates for ship coordinates along the X-axis
   if (orientation === "horizontal") {
     for (let i = 0; i < coordinates.length; i++) {
-      const element = coordinates[i];
-
+      let element = coordinates[i];
       let adjTop = [element[0] - 1, element[1]];
       let adjBottom = [element[0] + 1, element[1]];
 
@@ -206,8 +204,7 @@ const getLegalCombos = (shipLength) => {
   coordinates.push(pos);
 
   for (let i = 0; i < arrayLength; i++) {
-    const values = set[i];
-
+    let values = set[i];
     let x = pos[0];
     let y = pos[1];
     let move = [x + values[0], y + values[1]];

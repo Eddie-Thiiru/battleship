@@ -26,10 +26,10 @@ const GameBoard = () => {
 
   const findAttackedShip = (pos) => {
     for (let key in ships) {
-      const array = ships[key].coordinates;
+      let array = ships[key].coordinates;
 
       for (let i = 0; i < array.length; i++) {
-        const element = array[i];
+        let element = array[i];
 
         if (element[0] === pos[0] && element[1] === pos[1]) {
           return ships[key];
@@ -60,7 +60,7 @@ const GameBoard = () => {
     let count = 0;
 
     for (let key in ships) {
-      const shipState = ships[key].destroyed;
+      let shipState = ships[key].destroyed;
 
       if (shipState === true) {
         count += 1;
