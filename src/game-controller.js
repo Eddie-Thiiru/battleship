@@ -1,6 +1,6 @@
 import { GameBoard } from "./game-board";
 import { Player } from "./player";
-import { renderBoards, gameWinner, gameMenuEventHandler } from "./battleship";
+import { renderBoards, gameWinner } from "./battleship";
 import { userShipsCoordinates } from "./start-menu";
 import { computerShipCoordinates } from "./computerAI";
 
@@ -32,9 +32,6 @@ const Game = () => {
   // Initial player boards are rendered
   renderBoards().renderUserBoard(userBoard);
   renderBoards().renderComputerBoard(computerBoard);
-
-  // Initialize event handler
-  gameMenuEventHandler();
 };
 
 const playRound = (pos) => {
@@ -49,7 +46,7 @@ const playRound = (pos) => {
 
     // Check if all computer ships are destroyed
     if (computerGameBoard.allShipsDestroyed() === true) {
-      gameWinner("You Win!");
+      gameWinner("You Win");
       return;
     }
 
@@ -61,7 +58,7 @@ const playRound = (pos) => {
 
     // Check if all user ships are destroyed
     if (userGameBoard.allShipsDestroyed() === true) {
-      gameWinner("Computer Wins!");
+      gameWinner("AI Wins!");
       return;
     }
   }

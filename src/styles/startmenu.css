@@ -36,6 +36,7 @@ tbody {
 }
 
 .instructions-one {
+  font-size: 1.5rem;
   align-self: self-end;
 }
 
@@ -102,6 +103,7 @@ tbody {
 #destroyer,
 #submarine,
 #patrol-boat {
+  font-size: 0.75rem;
   color: #030201;
   background-color: #0099d6;
   border-radius: 2px;
@@ -114,9 +116,10 @@ tbody {
   position: absolute;
   height: 80px;
   width: 160px;
+  font-size: 1.25rem;
+  background-color: #18bc9c;
   border: none;
   border-radius: 5px;
-  background-color: #18bc9c;
   padding: 10px;
   top: 50%;
   left: 50%;
@@ -124,4 +127,10 @@ tbody {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.start-btn:hover {
+  background-color: #1bd3af;
+  height: 85px;
+  width: 165px;
 }

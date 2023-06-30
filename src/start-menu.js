@@ -25,7 +25,7 @@ const startMenu = () => {
   const rightSection = document.createElement("div");
   const table = document.createElement("table");
   const tableBody = document.createElement("tbody");
-  const para = document.createElement("p");
+  const para = document.createElement("h3");
   const paraTwo = document.createElement("p");
   const shipsContainer = document.createElement("div");
   const carrierBerth = document.createElement("div");
@@ -118,7 +118,23 @@ const startMenu = () => {
   container.appendChild(rightSection);
 };
 
+let userShips = {
+  carrier: null,
+  battleship: null,
+  destroyer: null,
+  submarine: null,
+  "patrol-boat": null,
+};
+
 let userShipsCoordinates = [];
+
+const sortShipsCoordinates = () => {
+  for (let key in userShips) {
+    let arr = userShips[key];
+
+    userShipsCoordinates.push(arr);
+  }
+};
 
 const allShipsPlaced = () => {
   const container = document.querySelector(".right-section");
@@ -137,6 +153,8 @@ const allShipsPlaced = () => {
 
   // Create "start-game" button when all ships are placed on the board
   if (ships === 0) {
+    sortShipsCoordinates();
+
     const btn = document.createElement("button");
 
     btn.classList.add("start-btn");
@@ -438,8 +456,8 @@ const startMenuEventHandler = () => {
         const draggableParent = draggableElement.parentNode;
         draggableParent.textContent = "";
 
+        userShips[draggableId] = shipCoordinates;
         e.dataTransfer.clearData();
-        userShipsCoordinates.push(shipCoordinates);
         allShipsPlaced();
       }
     }

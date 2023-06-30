@@ -192,7 +192,9 @@ const getLegalCombos = (shipLength) => {
   let set;
 
   // Randomize set of combos to be used
-  if (shipLength % 2 === 0) {
+  let random = Math.floor(Math.random() * 3);
+
+  if (random % 2 === 0) {
     set = legalCombos[0];
   } else {
     set = legalCombos[1];

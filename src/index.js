@@ -1,5 +1,6 @@
 import { pageLayout } from "./layout";
 import { startMenu, startMenuEventHandler } from "./start-menu";
+import { gameMenuEventHandler } from "./battleship";
 
 const component = () => {
   pageLayout();
@@ -7,5 +8,7 @@ const component = () => {
   startMenu();
 
   startMenuEventHandler();
+
+  gameMenuEventHandler();
 };
 component();

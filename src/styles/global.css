@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Open+Sans&display=swap");
+
 * {
   padding: 0;
   margin: 0;
@@ -6,6 +8,7 @@
 
 body {
   height: 100vh;
+  font-family: "Black Ops One", cursive;
   font-size: 1rem;
   color: #d1d4dc;
   background-color: #131c26;
@@ -16,25 +19,39 @@ body {
   width: 100%;
   padding: 10px;
   display: grid;
+  grid-template-columns: 100px 1fr 100px;
   grid-template-rows: 100px 1fr 100px;
 }
 
 .main-section {
   position: relative;
+  grid-column: 2 / 3;
   display: grid;
-  grid-template-columns: minmax(400px, 750px) minmax(400px, 750px);
+  grid-template-columns: minmax(400px, 600px) minmax(400px, 600px);
   justify-content: center;
 }
 
 .header {
+  grid-column: 2 / 3;
+  padding: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
 .footer {
+  grid-column: 2 / 3;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+h1 {
+  font-family: "Black Ops One", cursive;
+  font-size: 3rem;
+}
+
+.footer p {
+  font-family: "Open Sans", sans-serif;
 }
 
 img {

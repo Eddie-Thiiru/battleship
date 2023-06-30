@@ -4,7 +4,7 @@ body.modal-open {
 
 body.modal-open .user-container,
 body.modal-open .computer-container {
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 body.modal-open .pop-up {
@@ -13,19 +13,23 @@ body.modal-open .pop-up {
 
 .pop-up {
   position: absolute;
-  height: 200px;
-  width: 400px;
+  height: 40%;
+  width: 40%;
+  max-height: 250px;
+  min-height: 200px;
+  max-width: 450px;
+  min-width: 350px;
   color: #d1d4dc;
-  background-color: rgba(39, 57, 77, 0.7);
+  background-color: rgba(45, 67, 90, 0.8);
   padding: 10px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  justify-items: center;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
 }
 
 .user-container,
@@ -73,6 +77,22 @@ body.modal-open .pop-up {
   background-color: #ff1a1a;
 }
 
-.square:hover {
-  background-color: #23ffcf;
+.restart-btn {
+  height: 55px;
+  width: 110px;
+  font-size: 1.25rem;
+  background-color: #18bc9c;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.pop-up h3 {
+  font-size: 2.5rem;
+}
+
+.restart-btn:hover {
+  background-color: #1bd3af;
+  height: 60px;
+  width: 115px;
 }

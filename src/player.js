@@ -25,19 +25,24 @@ const Player = (name) => {
   const attack = (enemy, GameBoard, pos) => {
     const enemyName = enemy.getName();
 
-    if (enemyName === "user") {
+    const getRandom = () => {
       let x = Math.floor(Math.random() * 10);
       let y = Math.floor(Math.random() * 10);
-      let pos = [x, y];
 
+      return [x, y];
+    };
+
+    if (enemyName === "user") {
+      let pos = getRandom();
       let checkLegal = isAttackLegal(enemyName, pos);
 
-      if (checkLegal === true) {
-        computerAttacks.push(pos);
-        GameBoard.receiveAttack(pos);
-      } else {
-        attack(enemy, GameBoard);
+      while (checkLegal === false) {
+        pos = getRandom();
+        checkLegal = isAttackLegal(enemyName, pos);
       }
+
+      computerAttacks.push(pos);
+      GameBoard.receiveAttack(pos);
     } else {
       let checkLegal = isAttackLegal(enemyName, pos);
 

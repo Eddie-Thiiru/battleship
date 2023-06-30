@@ -1,4 +1,4 @@
-import { startMenu } from "./start-menu";
+import { startMenu, startMenuEventHandler } from "./start-menu";
 import { playRound } from "./game-controller";
 import { userAttacks, computerAttacks } from "./player";
 import "./styles/gamemenu.css";
@@ -74,6 +74,7 @@ const renderBoards = () => {
         const data = board[i][j];
 
         btn.classList.add("square");
+        btn.classList.add("computer");
         btn.type = "button";
         btn.dataset.pos = `${i},${j}`;
 
@@ -99,7 +100,7 @@ const gameWinner = (winner) => {
   popUp.classList.add("pop-up");
   winnerAnnouncer.classList.add("winner");
   winnerAnnouncer.textContent = winner;
-  restartButton.classList.add("restart-button");
+  restartButton.classList.add("restart-btn");
   restartButton.type = "button";
   restartButton.textContent = "Rematch";
   document.body.classList.toggle("modal-open");
@@ -112,10 +113,27 @@ const gameWinner = (winner) => {
 const gameMenuEventHandler = () => {
   const mainSection = document.querySelector(".main-section");
 
+  mainSection.addEventListener("mouseover", (e) => {
+    const element = e.target;
+
+    if (element.className === "square computer") {
+      element.style.backgroundColor = "#23ffcf";
+    }
+  });
+
+  mainSection.addEventListener("mouseout", (e) => {
+    const element = e.target;
+
+    if (element.className === "square computer") {
+      element.style.backgroundColor = "";
+    }
+  });
+
   mainSection.addEventListener("click", (e) => {
-    if (e.target.className === "square") {
-      const square = e.target;
-      const data = square.dataset.pos;
+    const element = e.target;
+
+    if (element.className === "square computer") {
+      const data = element.dataset.pos;
       const array = data.split(",");
       const pos = [parseInt(array[0]), parseInt(array[1])];
 
@@ -124,7 +142,7 @@ const gameMenuEventHandler = () => {
   });
 
   mainSection.addEventListener("click", (e) => {
-    if (e.target.className === "restart-button") {
+    if (e.target.className === "restart-btn") {
       document.body.classList.toggle("modal-open");
       mainSection.textContent = "";
 
