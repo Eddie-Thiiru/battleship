@@ -7,39 +7,39 @@
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   font-family: "Black Ops One", cursive;
   font-size: 1rem;
   color: #d1d4dc;
   background-color: #131c26;
+  display: grid;
 }
 
 .content {
   height: 100%;
   width: 100%;
-  padding: 10px;
+  padding: 20px 50px;
   display: grid;
-  grid-template-columns: 100px 1fr 100px;
-  grid-template-rows: 100px 1fr 100px;
+  grid-template-columns: 1fr;
+  grid-template-rows: 70px 1fr 70px;
 }
 
 .main-section {
+  padding: 10px;
   position: relative;
-  grid-column: 2 / 3;
   display: grid;
-  grid-template-columns: minmax(400px, 600px) minmax(400px, 600px);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 500px));
   justify-content: center;
 }
 
 .header {
-  grid-column: 2 / 3;
   padding: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-items: center;
 }
 
 .footer {
-  grid-column: 2 / 3;
   display: flex;
   justify-content: center;
   align-items: center;

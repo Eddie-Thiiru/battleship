@@ -16,7 +16,7 @@ const pageLayout = () => {
   title.classList.add("title");
   title.textContent = "Battleship";
   copyright.classList.add("copyright");
-  copyright.textContent = "Copyright @ Battleship 2023";
+  copyright.textContent = "@ Eddie Thiiru 2023";
   logo.src = Img;
   logo.alt = "Submarine logo";
 

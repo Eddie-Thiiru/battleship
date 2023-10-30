@@ -57,45 +57,54 @@ tbody {
   padding: 10px;
 }
 
-#carrier.horizontal {
+#carrier.horizontal,
+#battleship.horizontal,
+#destroyer.horizontal,
+#submarine.horizontal,
+#patrol-boat.horizontal {
   height: 35px;
+}
+
+#carrier.horizontal {
   width: 200px;
 }
+
 #battleship.horizontal {
-  height: 35px;
   width: 160px;
 }
 
 #destroyer.horizontal,
 #submarine.horizontal {
-  height: 35px;
   width: 120px;
 }
 
 #patrol-boat.horizontal {
-  height: 35px;
   width: 80px;
+}
+
+#carrier.vertical,
+#battleship.vertical,
+#destroyer.vertical,
+#submarine.vertical,
+#patrol-boat.vertical {
+  width: 35px;
 }
 
 #carrier.vertical {
   height: 200px;
-  width: 35px;
 }
 
 #battleship.vertical {
   height: 160px;
-  width: 35px;
 }
 
 #destroyer.vertical,
 #submarine.vertical {
   height: 120px;
-  width: 35px;
 }
 
 #patrol-boat.vertical {
   height: 80px;
-  width: 35px;
 }
 
 #carrier,
@@ -133,4 +142,61 @@ tbody {
   background-color: #1bd3af;
   height: 85px;
   width: 165px;
+}
+
+@media (max-width: 600px) {
+  .start-menu-table {
+    height: 300px;
+    width: 300px;
+  }
+
+  #carrier.horizontal,
+  #battleship.horizontal,
+  #destroyer.horizontal,
+  #submarine.horizontal,
+  #patrol-boat.horizontal {
+    height: 25px;
+  }
+
+  #carrier.horizontal {
+    width: 150px;
+  }
+
+  #battleship.horizontal {
+    width: 120px;
+  }
+
+  #destroyer.horizontal,
+  #submarine.horizontal {
+    width: 90px;
+  }
+
+  #patrol-boat.horizontal {
+    width: 60px;
+  }
+
+  #carrier.vertical,
+  #battleship.vertical,
+  #destroyer.vertical,
+  #submarine.vertical,
+  #patrol-boat.vertical {
+    width: 25px;
+  }
+
+  #carrier.vertical {
+    height: 150px;
+  }
+
+  #battleship.vertical {
+    height: 120px;
+  }
+
+  #destroyer.vertical,
+  #submarine.vertical {
+    height: 90px;
+  }
+
+  #patrol-boat.vertical {
+    height: 60px;
+  }
 }

@@ -160,6 +160,7 @@ const allShipsPlaced = () => {
     btn.classList.add("start-btn");
     btn.type = "button";
     btn.textContent = "Start Game";
+    container.style.color = "grey";
 
     container.appendChild(btn);
 

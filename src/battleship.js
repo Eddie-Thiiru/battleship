@@ -22,10 +22,10 @@ const gameMenu = () => {
   battlefieldOnePara.textContent = "Player Board";
   battlefieldTwoPara.textContent = "AI Board";
 
-  containerOne.appendChild(battlefieldOne);
-  containerTwo.appendChild(battlefieldTwo);
   containerOne.appendChild(battlefieldOnePara);
   containerTwo.appendChild(battlefieldTwoPara);
+  containerOne.appendChild(battlefieldOne);
+  containerTwo.appendChild(battlefieldTwo);
   container.appendChild(containerOne);
   container.appendChild(containerTwo);
 };

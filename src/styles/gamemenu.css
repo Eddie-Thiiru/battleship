@@ -38,7 +38,6 @@ body.modal-open .pop-up {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
 }
 
 .user-battlefield,
@@ -89,6 +88,15 @@ body.modal-open .pop-up {
 
 .pop-up h3 {
   font-size: 2.5rem;
+}
+
+.user-container p,
+.computer-container p {
+  padding: 5px;
+}
+
+.computer-container {
+  margin-top: 10px;
 }
 
 .restart-btn:hover {
