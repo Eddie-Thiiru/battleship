@@ -368,6 +368,7 @@ const startMenuEventHandler = () => {
 
   mainSection.addEventListener("dragstart", (e) => {
     let element = e.target.id;
+    console.log("started");
 
     if (
       element === "carrier" ||

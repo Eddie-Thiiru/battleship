@@ -104,3 +104,18 @@ body.modal-open .pop-up {
   height: 60px;
   width: 115px;
 }
+
+@media (max-width: 600px) {
+  .content {
+    padding: 20px;
+  }
+
+  .user-battlefield,
+  .computer-battlefield {
+    transform: scale(0.8);
+  }
+
+  .pop-up {
+    max-width: 320px;
+  }
+}
